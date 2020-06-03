@@ -7,6 +7,7 @@
 #include "sportCar.h"
 #include "LuxuryCar.h"
 
+
 class Maserati : public sportCar , public LuxuryCar{
 
 };

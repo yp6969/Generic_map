@@ -4,9 +4,9 @@
 
 #ifndef METROPOLIN_SPORTCAR_H
 #define METROPOLIN_SPORTCAR_H
-
-
-class sportCar {
+#include "car.h"
+#define SPORT_C 4
+class sportCar : public car {
 
 };
 

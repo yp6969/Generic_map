@@ -4,9 +4,10 @@
 
 #ifndef METROPOLIN_LUXURYCAR_H
 #define METROPOLIN_LUXURYCAR_H
+#include "car.h"
+#define LUXURY_C 3
 
-
-class LuxuryCar {
+class LuxuryCar : public car{
 
 };
 
