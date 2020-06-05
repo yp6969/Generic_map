@@ -3,7 +3,6 @@
 
 void InputError();
 void createMatrix(ifstream& matrix ,  double** &_graph , unsigned int& size);
-double poll_const;
 
 int main(int argc , char* argv[]) {
 
@@ -30,11 +29,11 @@ int main(int argc , char* argv[]) {
     Metropolis* metropolis = new Metropolis( _graph , size);
     metropolis->createCarList(cars);
 
-    int time ;
+    int time = 20;
     //cout<<"Please enter C"<<endl;
-    cin>>poll_const;
+    //cin>>poll_const;
     //cout<<"Please enter time"<<endl;
-    cin>>time;
+    //cin>>time;
     //poll_const = 7;
     //time = 0;
 

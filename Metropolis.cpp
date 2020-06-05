@@ -67,14 +67,27 @@ Metropolis::~Metropolis() {
 void Metropolis::createCarList(ifstream& cars){
     string s;
     int id;
+    char type;
     for (unsigned int i = 0; i < size ; ++i) {
         getline(cars , s);
         stringstream sso(s);
         sso>>s; // junk
         //cout<<s<<endl; // print the function id like 1: ....(cars)...
-        while(sso>>id){ // insert the car id into varlible
-            //cout<<id<<" "; // print it out
-            junction[i]->addCar(new car(id, junction[i]->getId())); // add the car
+        while(sso>>type && sso>>id){ // insert the car id into varlible
+            switch (type) {
+                case 'F':
+                    junction[i]->addCar(new FamilyCar(id, type , junction[i]->getId() )); // add the car
+                    break;
+                case 'S':
+                    junction[i]->addCar(new sportCar(id, type , junction[i]->getId() )); // add the car
+                    break;
+                case 'L':
+                    junction[i]->addCar(new LuxuryCar(id, type , junction[i]->getId() )); // add the car
+                    break;
+                case 'M':
+                    junction[i]->addCar(new Maserati(id, type , junction[i]->getId() )); // add the car
+                    break;
+            }
         }
         //cout<<endl;
     }
@@ -89,12 +102,12 @@ void Metropolis::tick(){
     for(unsigned int i=0 ; i<size ; i++){
         car* head = junction[i]->getCarList();
         while(head && head->get_num_of_move() == num_of_ticks){
-            next_id = junction[i]->getProbability();
+            next_id = junction[i]->getProbability(head->getType());
             junction[next_id-1]->addCar(junction[i]->removeCar());
             (*head)++; // update the car to know it moved
             head->setLocation(next_id);
             t_road = getRoad(i+1 , next_id);
-            if(t_road) (*t_road)++; // update the pollution
+            if(t_road) (*t_road) += head->getPoll_const(); // update the pollution
             head = junction[i]->getCarList();
         }
     }
@@ -124,9 +137,7 @@ void Metropolis::printPollution(){
  * print the information about the cars in the junctions
  */
 void Metropolis::printCarList(){
-    for(unsigned int i=0 ; i<size ; i++){
-        cout<<(*junction[i]);
-    }
+    for(unsigned int i=0 ; i<size ; i++) cout<<(*junction[i]);
     cout<<endl;
 }
 

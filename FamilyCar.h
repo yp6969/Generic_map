@@ -8,7 +8,8 @@
 #define FAMILY_C 2
 
 class FamilyCar : public car {
-private:
+public:
+    FamilyCar(int id, char type , int location) : car(id, type , location , FAMILY_C) {}
 
 };
 

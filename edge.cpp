@@ -49,11 +49,27 @@ car* edge::removeCar(){
 }
 
 /**
+ * @param type of the car
  * @return the spesific junction to move to
+ * depending on the type of the car
  */
-int edge::getProbability() {
-
-    return neighbor[ rand() % (number_of_neighbors+1)];
+int edge::getProbability(char type) {
+    int random = rand() , index = 0 ;
+    if(number_of_neighbors) {
+        switch (type) {
+            case 'F':
+                index = random % (number_of_neighbors + 1);
+                break;
+            case 'L':
+                if (rand() % 2) { index = (random % (number_of_neighbors)) + 1; }
+                break;
+            case 'M':
+            case 'S':
+                if (number_of_neighbors) { index = (random % (number_of_neighbors)) + 1; }
+                break;
+        }
+    }
+    return neighbor[index];
 }
 
 /**
@@ -67,7 +83,7 @@ ostream& operator<<(ostream& out , edge& junction ){
     car* head = junction.carList;
     while(head){
         out<<" ";
-        out<<head->getId();
+        out<<head->getType()<<head->getId();
         head = head->next;
     }
     out<<endl;

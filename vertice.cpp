@@ -11,7 +11,7 @@ to(to),
 length(length),
 pollution(0) {}
 
-const vertice vertice::operator++(int){
+const vertice vertice::operator+=(int poll_const ){
     vertice temp = *this;
     pollution += poll_const/length; // update the pollution
     return temp;

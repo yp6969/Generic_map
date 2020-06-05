@@ -7,8 +7,6 @@
 #include <cstdio>
 #include <iostream>
 
-extern double poll_const;
-
 class vertice {
 private:
     const unsigned int from;
@@ -21,7 +19,7 @@ public:
     vertice(const unsigned int from, const unsigned int to, const double length);
 
 
-    const vertice operator++(int);
+    const vertice operator+=(int poll_const);
 
 
     /*
@@ -31,7 +29,7 @@ public:
 
     const unsigned int getTo() const {return to;}
 
-    const double getLength() const {return length;}
+    //const double getLength() const {return length;}
 
     double getPollution() const {return pollution;}
 

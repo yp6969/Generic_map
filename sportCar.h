@@ -6,7 +6,10 @@
 #define METROPOLIN_SPORTCAR_H
 #include "car.h"
 #define SPORT_C 4
-class sportCar : public car {
+
+class sportCar : public virtual car {
+public:
+    sportCar(int id, char type , int location) : car(id, type , location , SPORT_C) {}
 
 };
 

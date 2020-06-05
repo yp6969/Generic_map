@@ -9,6 +9,9 @@
 
 
 class Maserati : public sportCar , public LuxuryCar{
+public:
+    Maserati(int id , char type , int location);
+    ~Maserati();
 
 };
 

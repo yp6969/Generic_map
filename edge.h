@@ -4,7 +4,8 @@
 
 #ifndef METROPOLIN_EDGE_H
 #define METROPOLIN_EDGE_H
-#include "car.h"
+#include "FamilyCar.h"
+#include "Maserati.h"
 #include <cstdlib>
 #include <time.h>
 
@@ -22,7 +23,7 @@ public:
 
     void addCar(car* c); // add car to the end of the list
     car* removeCar();
-    int getProbability();
+    int getProbability(char type);
     friend ostream& operator<<(ostream& out , edge& junction );
     unsigned int& operator[](int i){ return neighbor[i];}
     //void moveCar(unsigned int id);

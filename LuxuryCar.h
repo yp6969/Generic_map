@@ -7,8 +7,18 @@
 #include "car.h"
 #define LUXURY_C 3
 
-class LuxuryCar : public car{
+class LuxuryCar : public virtual car{
 
+public:
+    LuxuryCar(int id, char type , int location) : car(id, type , location , LUXURY_C) {}
+
+
+private:
+
+    /*
+     * @override
+     */
+    int probability();
 };
 
 
