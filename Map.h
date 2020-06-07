@@ -28,6 +28,7 @@ public:
     K& getKey() const { return key;}
     K& getValue() const { return value;}
     void setValue(V& value) { this->value = value ;}
+    ostream& operator<<(ostream& out){ out<<key<<" "<<value;}
 };
 
 template< typename K , typename V >
@@ -47,11 +48,7 @@ public:
     bool remove(K key); // delete the element by the key
     void destroy(); // destroy all the element
     void print() const;
-    const unsigned int getSize() const;
-
-    V* operator[](V& key);
-
-
+    const unsigned int getSize() const {return size;}
 };
 
 /**
@@ -121,28 +118,34 @@ bool Map<K,V>::remove(K key){
     }
     if(flag){
         Pair<K,V> *t_list[--size];
-        for (int i = 0 , j = 0 ; i < size+1 ; i++ ) {
-            if(elem_array[i].getKey == NULL){
-
+        for (int i = 0 , j = 0 ; i < size ; i++ , j++ ) {
+            if(elem_array[j].getKey == NULL) {
+                j++;
             }
+            t_list[i] = elem_array[j];
         }
+        delete [] elem_array;
+        elem_array = t_list;
+    }
+    return flag;
+}
+
+/**
+ * destroy all the map
+ */
+template<typename K , typename V>
+void Map<K,V>::destroy(){
+    delete [] elem_array;
+}
+
+/**
+ * print the elemnt
+ */
+template<typename K , typename V>
+void Map<K,V>::print() const {
+    for (int i = 0; i < size ; i++) {
+        cout<<elem_array[i]<<endl;
     }
 }
-
-template<typename K , typename V>
-void Map<K,V>::destroy(); // destroy all the element
-
-template<typename K , typename V>
-void Map<K,V>::print() const;
-
-template<typename K , typename V>
-const unsigned int Map<K,V>::getSize() const;
-
-template<typename K , typename V>
-V* Map<K,V>::operator[](V& key){
-
-}
-
-
 
 #endif //METROPOLIN_MAP_H
