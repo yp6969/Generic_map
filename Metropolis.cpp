@@ -103,11 +103,17 @@ void Metropolis::tick(){
     for(unsigned int i=0 ; i<size ; i++){
         car* head = junction[i]->getCarList();
         while(head && head->get_num_of_move() == num_of_ticks){
+
+            /* calculate the probability*/
             next_id = junction[i]->getProbability(*head);
             junction[next_id-1]->addCar(junction[i]->removeCar());
+
+            /* update the car and the car_map */
             (*head)++; // update the car to know it moved
             head->setLocation(next_id);
-            //car_map->add();
+            car_map->add(head->getName() , next_id );
+
+            /* update the pollution */
             t_road = getRoad(i+1 , next_id);
             if(t_road) (*t_road) += head->getPoll_const(); // update the pollution
             head = junction[i]->getCarList();

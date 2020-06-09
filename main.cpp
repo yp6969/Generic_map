@@ -50,6 +50,7 @@ int main(int argc , char* argv[]) {
 
     metropolis->printPollution();
     metropolis->printCarList();
+
     delete metropolis;
     for (unsigned int j = 0; j < size; ++j) {
         delete [] _graph[j];
