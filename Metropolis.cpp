@@ -44,6 +44,9 @@ Metropolis::Metropolis(double** _graph , unsigned int size) : size(size) , num_o
         }
         cnt_neighbors = 0;
     }
+
+    car_map = new Map<string,int>();
+
 }
 
 /**
@@ -71,25 +74,27 @@ void Metropolis::createCarList(ifstream& cars){
     for (unsigned int i = 0; i < size ; ++i) {
         getline(cars , s);
         stringstream sso(s);
-        sso>>s; // junk
-        //cout<<s<<endl; // print the function id like 1: ....(cars)...
-        while(sso>>type && sso>>id){ // insert the car id into varlible
+        sso>>s; // throw junk
+
+        while(sso>>type && sso>>id){ // insert type the car id into varlible
+            stringstream ssi;
+            ssi << type << id;
+            car_map->add(ssi.str() , junction[i]->getId());  //  adding to the map
             switch (type) {
                 case 'F':
-                    junction[i]->addCar(new FamilyCar(id, type , junction[i]->getId() )); // add the car
+                    junction[i]->addCar(new FamilyCar(id, type , junction[i]->getId() ));
                     break;
                 case 'S':
-                    junction[i]->addCar(new sportCar(id, type , junction[i]->getId() )); // add the car
+                    junction[i]->addCar(new sportCar(id, type , junction[i]->getId() ));
                     break;
                 case 'L':
-                    junction[i]->addCar(new LuxuryCar(id, type , junction[i]->getId() )); // add the car
+                    junction[i]->addCar(new LuxuryCar(id, type , junction[i]->getId() ));
                     break;
                 case 'M':
-                    junction[i]->addCar(new Maserati(id, type , junction[i]->getId() )); // add the car
+                    junction[i]->addCar(new Maserati(id, type , junction[i]->getId() ));
                     break;
             }
         }
-        //cout<<endl;
     }
 }
 
@@ -102,10 +107,11 @@ void Metropolis::tick(){
     for(unsigned int i=0 ; i<size ; i++){
         car* head = junction[i]->getCarList();
         while(head && head->get_num_of_move() == num_of_ticks){
-            next_id = junction[i]->getProbability(head->getType());
+            next_id = junction[i]->getProbability(*head);
             junction[next_id-1]->addCar(junction[i]->removeCar());
             (*head)++; // update the car to know it moved
             head->setLocation(next_id);
+            //car_map->add();
             t_road = getRoad(i+1 , next_id);
             if(t_road) (*t_road) += head->getPoll_const(); // update the pollution
             head = junction[i]->getCarList();

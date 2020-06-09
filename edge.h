@@ -6,8 +6,6 @@
 #define METROPOLIN_EDGE_H
 #include "FamilyCar.h"
 #include "Maserati.h"
-#include <cstdlib>
-#include <time.h>
 
 class edge {
 private:
@@ -23,7 +21,7 @@ public:
 
     void addCar(car* c); // add car to the end of the list
     car* removeCar();
-    int getProbability(char type);
+    const int getProbability(const car& c) const ;
     friend ostream& operator<<(ostream& out , edge& junction );
     unsigned int& operator[](int i){ return neighbor[i];}
     //void moveCar(unsigned int id);

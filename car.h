@@ -5,6 +5,8 @@
 #ifndef METROPOLIN_CAR_H
 #define METROPOLIN_CAR_H
 #include <iostream>
+#include <time.h>
+#include <cstdlib>
 using namespace std;
 
 
@@ -31,6 +33,7 @@ public:
     unsigned int getPoll_const() const { return poll_const;}
     unsigned int get_num_of_move() const{return num_of_move;}
     void operator++(int) {num_of_move++;}
+    virtual int prob(const int& number_of_neighbors) const = 0;
 
 };
 

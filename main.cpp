@@ -29,27 +29,20 @@ int main(int argc , char* argv[]) {
     Metropolis* metropolis = new Metropolis( _graph , size);
     metropolis->createCarList(cars);
 
-    Map<string , int> *map = new Map<string , int>();
-    string ss = "bbb";
-    string s = "aaa";
-    map->add(ss,6);
-    map->add(s,5);
-    map->add(s,4);
-    map->print();
-    map->remove("aaa");
-    map->print();
-    cout << *(map->find("bbb"));
+//    Map<string , int> *map = new Map<string , int>();
+//    string ss = "bbb";
+//    string s = "aaa";
+//    map->add(ss,6);
+//    map->add(s,5);
+//    map->add(s,4);
+//    map->print();
+//    map->remove("aaa");
+//    map->print();
+//    cout << *(map->find("bbb"));
 
 
-
-    return 0;
-    int time = 20;
-    //cout<<"Please enter C"<<endl;
-    //cin>>poll_const;
-    //cout<<"Please enter time"<<endl;
+    int time = 100;
     //cin>>time;
-    //poll_const = 7;
-    //time = 0;
 
     for (int i = 0 ; i < time ; i++ ) {
         metropolis->tick();

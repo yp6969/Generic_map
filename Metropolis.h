@@ -21,6 +21,7 @@ private:
     edge** junction;
     vertice** road;
     unsigned int num_of_roads;
+    Map<string,int> *car_map;
 
 public:
     Metropolis(double** graph , unsigned int size);

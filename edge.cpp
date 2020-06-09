@@ -8,7 +8,6 @@ edge::edge(unsigned int id , unsigned int number_of_neighbors) : id(id) , number
     neighbor = new unsigned int[number_of_neighbors+1];
     neighbor[0] = id; // neighbor[0] is me !
     carList = NULL;
-    srand (time(NULL)); //******* maybe ot side of function
 }
 
 edge::~edge(){
@@ -53,21 +52,10 @@ car* edge::removeCar(){
  * @return the spesific junction to move to
  * depending on the type of the car
  */
-int edge::getProbability(char type) {
-    int random = rand() , index = 0 ;
+const int edge::getProbability(const car& c) const {
+    int index = 0 ;
     if(number_of_neighbors) {
-        switch (type) {
-            case 'F':
-                index = random % (number_of_neighbors + 1);
-                break;
-            case 'L':
-                if (rand() % 2) { index = (random % (number_of_neighbors)) + 1; }
-                break;
-            case 'M':
-            case 'S':
-                if (number_of_neighbors) { index = (random % (number_of_neighbors)) + 1; }
-                break;
-        }
+        index = c.prob(number_of_neighbors);
     }
     return neighbor[index];
 }

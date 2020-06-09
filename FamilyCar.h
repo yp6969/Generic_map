@@ -10,6 +10,7 @@
 class FamilyCar : public car {
 public:
     FamilyCar(int id, char type , int location) : car(id, type , location , FAMILY_C) {}
+    virtual int prob(const int& number_of_neighbors) const { return rand() % (number_of_neighbors + 1);}
 
 };
 
