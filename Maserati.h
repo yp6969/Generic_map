@@ -10,7 +10,7 @@
 
 class Maserati : public sportCar , public LuxuryCar{
 public:
-    Maserati(int id , char type , int location);
+    Maserati(const string& name , int location);
     virtual ~Maserati();
 
     int prob(const int& number_of_neighbors) const { return sportCar::prob(number_of_neighbors);}

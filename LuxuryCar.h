@@ -10,7 +10,7 @@
 class LuxuryCar : public virtual car{
 
 public:
-    LuxuryCar(int id, char type , int location) : car(id, type , location , LUXURY_C) {}
+    LuxuryCar(const string& name , int location) : car( name , location , LUXURY_C) {}
     virtual int prob(const int& number_of_neighbors) const { if (rand() % 2) { return (rand() % (number_of_neighbors)) + 1;} else return 0;}
 };
 

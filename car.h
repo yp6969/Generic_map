@@ -12,22 +12,20 @@ using namespace std;
 
 class car {
 private:
-    const unsigned int id;
-    const unsigned char type;
+    const string name;
     unsigned int location;
     const unsigned int poll_const;
     unsigned int num_of_move;
 
 public:
     car* next;
-    car(int id , char type,  int location , int poll_const);
+    car( const string& name ,  int location , int poll_const);
     car(const car& c);
     virtual ~car();
     /*
      * getters setters
      */
-    const unsigned int getId() const {return id;}
-    const unsigned char getType() const {return type;}
+    const string& getName() const { return name;}
     unsigned int getLocation() const {return location;}
     void setLocation(int location) { this->location = location;}
     unsigned int getPoll_const() const { return poll_const;}

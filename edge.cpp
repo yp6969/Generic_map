@@ -71,7 +71,7 @@ ostream& operator<<(ostream& out , edge& junction ){
     car* head = junction.carList;
     while(head){
         out<<" ";
-        out<<head->getType()<<head->getId();
+        out<<head->getName();
         head = head->next;
     }
     out<<endl;

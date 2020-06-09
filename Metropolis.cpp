@@ -69,29 +69,25 @@ Metropolis::~Metropolis() {
  */
 void Metropolis::createCarList(ifstream& cars){
     string s;
-    int id;
-    char type;
     for (unsigned int i = 0; i < size ; ++i) {
         getline(cars , s);
         stringstream sso(s);
         sso>>s; // throw junk
 
-        while(sso>>type && sso>>id){ // insert type the car id into varlible
-            stringstream ssi;
-            ssi << type << id;
-            car_map->add(ssi.str() , junction[i]->getId());  //  adding to the map
-            switch (type) {
+        while(sso>>s){ // insert type the car id into varlible
+            car_map->add( s , junction[i]->getId());  //  adding to the map
+            switch (s.c_str()[0]) {
                 case 'F':
-                    junction[i]->addCar(new FamilyCar(id, type , junction[i]->getId() ));
+                    junction[i]->addCar(new FamilyCar(s , junction[i]->getId() ));
                     break;
                 case 'S':
-                    junction[i]->addCar(new sportCar(id, type , junction[i]->getId() ));
+                    junction[i]->addCar(new sportCar(s , junction[i]->getId() ));
                     break;
                 case 'L':
-                    junction[i]->addCar(new LuxuryCar(id, type , junction[i]->getId() ));
+                    junction[i]->addCar(new LuxuryCar(s , junction[i]->getId() ));
                     break;
                 case 'M':
-                    junction[i]->addCar(new Maserati(id, type , junction[i]->getId() ));
+                    junction[i]->addCar(new Maserati( s , junction[i]->getId() ));
                     break;
             }
         }

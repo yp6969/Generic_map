@@ -4,8 +4,8 @@
 
 #include "Maserati.h"
 
-Maserati::Maserati(int id , char type , int location)
-    : car(id, type,  location , LUXURY_C) , sportCar(id , type , location), LuxuryCar(id , type , location) {}
+Maserati::Maserati(const string& name , int location)
+    : car(name,  location , LUXURY_C) , sportCar(name, location), LuxuryCar(name, location) {}
 
 Maserati::~Maserati() {}
 
