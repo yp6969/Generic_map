@@ -18,9 +18,9 @@ int main(int argc , char* argv[]) {
     /**
      * check the input ......
      */
-    unsigned int size = 9;
+    unsigned int size;
 
-    double** _graph = new double*[size];
+    double** _graph ;
     for (unsigned int k = 0; k < size; ++k) {
         _graph[k] = new double [size];
     }
@@ -28,18 +28,6 @@ int main(int argc , char* argv[]) {
     createMatrix(matrix , _graph , size );
     Metropolis* metropolis = new Metropolis( _graph , size);
     metropolis->createCarList(cars);
-
-//    Map<string , int> *map = new Map<string , int>();
-//    string ss = "bbb";
-//    string s = "aaa";
-//    map->add(ss,6);
-//    map->add(s,5);
-//    map->add(s,4);
-//    map->print();
-//    map->remove("aaa");
-//    map->print();
-//    cout << *(map->find("bbb"));
-
 
     int time = 100;
     //cin>>time;
@@ -69,7 +57,13 @@ int main(int argc , char* argv[]) {
  */
 void createMatrix(ifstream& matrix ,  double** &_graph , unsigned int& size){
     string s;
-    getline(matrix , s);
+    matrix>>size;
+    if(!size) InputError();
+    _graph = new double*[size];
+    for (unsigned int k = 0; k < size; ++k) {
+        _graph[k] = new double [size];
+    }
+
     for (unsigned int i = 0; i < size; ++i) {
         for (unsigned int j = 0; j < size; ++j) {
             matrix>>_graph[i][j];
