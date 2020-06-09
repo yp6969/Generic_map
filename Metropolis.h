@@ -10,6 +10,7 @@
 #include <sstream>
 #include "edge.h"
 #include "vertice.h"
+#include "Map.h"
 
 
 

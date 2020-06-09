@@ -5,6 +5,14 @@
 #ifndef METROPOLIN_MAP_IMPL_H
 #define METROPOLIN_MAP_IMPL_H
 
+
+//template<typename K , typename V>
+//ostream& operator<<(ostream& out , Pair<K,V>& p){
+//    out<<p.key<<" "<<p.value;
+//    return out;
+//}
+
+
 /**
  * add element to the array
  * if the key is already exist override it
@@ -16,7 +24,7 @@
  * @param value
  */
 template<typename K , typename V>
-void Map<K,V>::add(K key , V value) {
+void Map<K,V>::add(const K& key ,const V& value) {
     for (int i = 0; i < size ; i++) {
         if(elem_array[i].getKey() == key){
             elem_array[i].setValue(value);
@@ -28,19 +36,21 @@ void Map<K,V>::add(K key , V value) {
      */
     size++;
     Pair<K,V> temp(key ,value);
-    Pair<K,V> *t_list[size];
+    Pair<K,V> *t_list = new Pair<K,V>[size];
     for (int i = 0; i < size-1 ; i++) {
-        if(key > elem_array[i] ) {
+        if(elem_array[i].getKey() < key ) {
             t_list[i] = elem_array[i];
         }else{
-            t_list[i] = key;
+            t_list[i] = temp;
             for (int j = i+1; j < size ; j++) {
                 t_list[j] = elem_array[j-1];
             }
+            delete [] elem_array;
+            elem_array = t_list;
             return;
         }
     }
-    t_list[size-1] = key;
+    t_list[size-1] = temp;
     delete [] elem_array;
     elem_array = t_list;
 }
@@ -53,9 +63,9 @@ void Map<K,V>::add(K key , V value) {
  * @return
  */
 template<typename K , typename V>
-V* Map<K,V>::find(K key) const{
+const V* Map<K,V>::find(const K& key) const{
     for (int i = 0; i < size ; i++) {
-        if(elem_array[i].getKey() == key) return &elem_array[i].getKey();
+        if(elem_array[i].getKey() == key) return &elem_array[i].getValue();
     }
     return NULL;
 }
@@ -68,19 +78,19 @@ V* Map<K,V>::find(K key) const{
  * @return
  */
 template<typename K , typename V>
-bool Map<K,V>::remove(K key){
+bool Map<K,V>::remove(const K& key){
     bool flag = false;
     for (int i = 0; i < size ; i++) {
         if(key == elem_array[i].getKey()){
-            elem_array[i].setKey(NULL);
+            elem_array[i].setKey();
             flag = true;
             break;
         }
     }
     if(flag){
-        Pair<K,V> *t_list[--size];
+        Pair<K,V>* t_list = new Pair<K,V>[--size];
         for (int i = 0 , j = 0 ; i < size ; i++ , j++ ) {
-            if(elem_array[j].getKey == NULL) {
+            if(elem_array[j].getKey() == "") {
                 j++;
             }
             t_list[i] = elem_array[j];
@@ -97,6 +107,7 @@ bool Map<K,V>::remove(K key){
 template<typename K , typename V>
 void Map<K,V>::destroy(){
     delete [] elem_array;
+    elem_array = NULL;
 }
 
 /**
@@ -105,9 +116,10 @@ void Map<K,V>::destroy(){
 template<typename K , typename V>
 void Map<K,V>::print() const {
     for (int i = 0; i < size ; i++) {
-        cout<<elem_array[i]<<endl;
+        cout << elem_array[i].getKey() << " " << elem_array[i].getValue() << endl;
     }
 }
+
 
 
 #endif //METROPOLIN_MAP_IMPL_H

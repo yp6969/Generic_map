@@ -6,7 +6,7 @@
 #define METROPOLIN_MAP_H
 
 #include <shlobj.h>
-#include "edge.h"
+#include <string>
 
 /**
  * declare pair of element (K , V)
@@ -14,21 +14,28 @@
  * @tparam V
  */
 
-template< typename K , typename V >
+template< typename T , typename U >
 class Pair {
 private:
-    K key;
-    V value;
+    T key;
+    U value;
 public:
-    Pair(): key(NULL) , value(NULL){}
-    Pair(K key ,V value): key(key) , value(value){}
+    Pair(): key() , value(0){}
+    Pair(T key ,U value): key(key) , value(value){}
     ~Pair(){}
 
-    Pair<K,V>& operator=(const Pair<K,V>& other ){ key = other.key ; value = other.value ; return *this ;}
-    K& getKey() const { return key;}
-    K& getValue() const { return value;}
-    void setValue(V& value) { this->value = value ;}
-    ostream& operator<<(ostream& out){ out<<key<<" "<<value; return out;}
+    Pair<T,U>& operator=(const Pair<T,U>& other ){
+        if(this != &other) {
+            key = other.key;
+            value = other.value;
+        }
+        return *this ;
+    }
+    const T& getKey() const { return key;}
+    const U& getValue() const { return value;}
+    void setValue(const U& value ) { this->value = value ;}
+    void setKey( const T& key = "") { this->key = key ;}
+    //friend ostream& operator<<(ostream& out , Pair<K,V>& p);//{ out<<key<<" "<<value; return out;}
 };
 
 /**
@@ -43,15 +50,15 @@ private:
     unsigned int size;
     Pair<K,V> *elem_array;
 public:
-    Map() :size(0) , elem_array(NULL){}
+    Map() :size(0) , elem_array(0){}
     ~Map();
 
     /*
      * functionality
      */
-    void add(K key , V value); // adding element to the map by order  key must be have " < " operator , elem must have  " = "
-    V* find(K key) const; // find the element by the key
-    bool remove(K key); // delete the element by the key
+    void add(const K& key , const V& value); // adding element to the map by order  key must be have " < " operator , elem must have  " = "
+    const V* find(const K& key) const; // find the element by the key
+    bool remove(const K& key); // delete the element by the key
     void destroy(); // destroy all the element
     void print() const;
     const unsigned int getSize() const {return size;}
